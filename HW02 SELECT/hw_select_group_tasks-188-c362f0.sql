@@ -92,7 +92,8 @@ JOIN Sales.OrderLines AS ol
 JOIN Sales.Customers AS c
     ON c.CustomerID = o.CustomerID
 WHERE ol.UnitPrice > 100 or (ol.Quantity > 20 and ol.PickingCompletedWhen IS NOT NULL)
-ORDER BY QuarterOrderDate, ThirdOrderDate, OrderDate
+ORDER BY QuarterOrderDate, ThirdOrderDate, OrderDate, o.orderId OFFSET 1000 ROWS FETCH FIRST 100 ROWS ONLY
+
 /*
 4. Заказы поставщикам (Purchasing.Suppliers),
 которые должны быть исполнены (ExpectedDeliveryDate) в январе 2013 года
